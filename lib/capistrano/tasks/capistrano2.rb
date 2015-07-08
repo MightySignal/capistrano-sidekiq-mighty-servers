@@ -30,7 +30,7 @@ Capistrano::Configuration.instance.load do
 
   namespace :sidekiq do
     def concurrency_args(sidekiq_role)
-      concurrency = fetch(:"#{ sidekiq_role }_concurrency")
+      concurrency = fetch(:"#{sidekiq_role}_concurrency")
       concurrency ? "--concurrency #{concurrency}" : nil
     end
     
