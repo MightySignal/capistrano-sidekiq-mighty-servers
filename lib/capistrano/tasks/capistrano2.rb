@@ -78,6 +78,9 @@ Capistrano::Configuration.instance.load do
       args.push "--logfile #{fetch(:sidekiq_log)}" if fetch(:sidekiq_log)
       args.push "--config #{fetch(:sidekiq_config)}" if fetch(:sidekiq_config)
 
+      puts ""
+      puts "SETTING CONCURRENCY"
+      gets
       args.push "--concurrency #{fetch(:sidekiq_concurrency)}"  
       
       # if fetch(:sidekiq_concurrency)
