@@ -77,11 +77,8 @@ Capistrano::Configuration.instance.load do
       args.push "--tag #{fetch(:sidekiq_tag)}" if fetch(:sidekiq_tag)
       args.push "--logfile #{fetch(:sidekiq_log)}" if fetch(:sidekiq_log)
       args.push "--config #{fetch(:sidekiq_config)}" if fetch(:sidekiq_config)
-
-      puts ""
-      puts "SETTING CONCURRENCY"
-      gets
-      args.push "--concurrency #{fetch(:sidekiq_concurrency)}"  
+      
+      args.push "--concurrency 30"  
       
       # if fetch(:sidekiq_concurrency)
       #   args.push "--concurrency #{fetch(:sidekiq_concurrency)}"
@@ -114,6 +111,7 @@ Capistrano::Configuration.instance.load do
       for_each_role do |sidekiq_role|
         for_each_process(sidekiq_role) do |pid_file, idx|
           quiet_process(pid_file, idx, sidekiq_role)
+          
         end
       end
     end
