@@ -28,12 +28,7 @@ Capistrano::Configuration.instance.load do
     before 'deploy:restart', 'sidekiq:restart'
   end
 
-  namespace :sidekiq do
-    def concurrency_args(sidekiq_role)
-      concurrency = fetch(:"#{sidekiq_role}_concurrency")
-      concurrency ? "--concurrency #{concurrency}" : nil
-    end
-    
+  namespace :sidekiq do    
     def for_each_process(sidekiq_role, &block)
       sidekiq_processes = fetch(:"#{ sidekiq_role }_processes") rescue 1
       sidekiq_processes.times do |idx|
@@ -77,14 +72,6 @@ Capistrano::Configuration.instance.load do
       args.push "--tag #{fetch(:sidekiq_tag)}" if fetch(:sidekiq_tag)
       args.push "--logfile #{fetch(:sidekiq_log)}" if fetch(:sidekiq_log)
       args.push "--config #{fetch(:sidekiq_config)}" if fetch(:sidekiq_config)
-      
-      args.push "--concurrency 30"  
-      
-      # if fetch(:sidekiq_concurrency)
-      #   args.push "--concurrency #{fetch(:sidekiq_concurrency)}"
-      # else
-      #   args.push concurrency_args(sidekiq_role)
-      # end
       
       fetch(:sidekiq_queue).each do |queue|
         args.push "--queue #{queue}"
