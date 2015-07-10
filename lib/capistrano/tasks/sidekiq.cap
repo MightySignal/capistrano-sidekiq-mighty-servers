@@ -98,7 +98,8 @@ namespace :sidekiq do
       args.push "--queue #{queue}"
     end
     args.push "--config #{fetch(:sidekiq_config)}" if fetch(:sidekiq_config)
-    args.push "--concurrency #{fetch(:sidekiq_concurrency)}" if fetch(:sidekiq_concurrency)
+    # args.push "--concurrency #{fetch(:sidekiq_concurrency)}" if fetch(:sidekiq_concurrency)
+    args.push "--concurrency 32"
     if process_options = fetch(:sidekiq_options_per_process)
       args.push process_options[idx]
     end
