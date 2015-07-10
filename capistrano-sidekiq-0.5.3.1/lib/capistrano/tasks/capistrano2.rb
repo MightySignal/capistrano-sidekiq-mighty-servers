@@ -70,6 +70,8 @@ Capistrano::Configuration.instance.load do
     end
 
     def start_process(pid_file, idx, sidekiq_role)
+      raise "INTENTIONAL EXCEPTION"
+      
       args = []
       args.push "--index #{idx}"
       args.push "--pidfile #{pid_file}"
