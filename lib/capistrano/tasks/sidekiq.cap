@@ -32,6 +32,16 @@ namespace :sidekiq do
     concurrency ? "--concurrency #{concurrency}" : nil
   end
   
+  def queue_args(sidekiq_role)
+    queues = Array(fetch(:"#{sidekiq_role}_queue"))
+    
+    return [] if queues.nil?
+    
+    queues.map do |queue|
+      "--queue #{queue}"
+    end
+  end
+  
   def for_each_process(reverse = false, &block)
     pids = processes_pids
     pids.reverse! if reverse
@@ -99,11 +109,19 @@ namespace :sidekiq do
     args.push "--logfile #{fetch(:sidekiq_log)}" if fetch(:sidekiq_log)
     args.push "--require #{fetch(:sidekiq_require)}" if fetch(:sidekiq_require)
     args.push "--tag #{fetch(:sidekiq_tag)}" if fetch(:sidekiq_tag)
-    Array(fetch(:sidekiq_queue)).each do |queue|
-      args.push "--queue #{queue}"
+    
+    if sidekiq_queue = fetch(:sidekiq_queue)
+      Array(sidekiq_queue).each do |queue|
+        args.push "--queue #{queue}"
+      end
+    else
+      queue_args(sidekiq_role).each do |arg|
+        args.push arg
+      end
     end
+    end
+    
     args.push "--config #{fetch(:sidekiq_config)}" if fetch(:sidekiq_config)
-    #args.push "--concurrency #{fetch(:sidekiq_concurrency)}" if fetch(:sidekiq_concurrency)
     
     if fetch(:sidekiq_concurrency)
       args.push "--concurrency #{fetch(:sidekiq_concurrency)}"
