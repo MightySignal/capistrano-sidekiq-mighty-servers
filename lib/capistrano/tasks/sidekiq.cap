@@ -91,7 +91,7 @@ namespace :sidekiq do
     end
   end
 
-  def start_sidekiq(pid_file, idx = 0, role = nil)
+  def start_sidekiq(pid_file, idx = 0, sidekiq_role = nil)
     args = []
     args.push "--index #{idx}"
     args.push "--pidfile #{pid_file}"
@@ -167,7 +167,7 @@ namespace :sidekiq do
   desc 'Start sidekiq'
   task :start do
     sidekiq_roles = fetch(:sidekiq_role)
-    sidekiq_roles = [sidekiq_roles] unless sidekiq_role.is_a?(Enumerable)
+    sidekiq_roles = [sidekiq_roles] unless sidekiq_roles.is_a?(Enumerable)
     
     sidekiq_roles.each do |sidekiq_role|
       on roles sidekiq_role do |x|
