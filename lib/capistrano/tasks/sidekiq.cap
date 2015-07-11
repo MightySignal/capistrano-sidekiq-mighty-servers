@@ -119,7 +119,6 @@ namespace :sidekiq do
         args.push arg
       end
     end
-    end
     
     args.push "--config #{fetch(:sidekiq_config)}" if fetch(:sidekiq_config)
     
