@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'capistrano/sidekiq/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'capistrano-sidekiq-multiple'
+  spec.name = 'capistrano-sidekiq-mighty-servers'
   spec.version = Capistrano::Sidekiq::VERSION
   spec.authors = ['Jason Lew']
   # spec.email = ['terminale@gmail.com']
