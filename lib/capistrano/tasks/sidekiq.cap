@@ -37,7 +37,7 @@ namespace :sidekiq do
     
     return [] if queues.nil?
     
-    [`hostname -I`.strip.gsub('.', '-')] + queues.map{ |queue| "--queue #{queue}"}
+    queues.map{ |queue| "--queue #{queue}"}
   end
   
   def for_each_process(reverse = false, &block)
