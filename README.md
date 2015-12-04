@@ -131,6 +131,7 @@ set :sidekiq_monit_use_sudo, false
 - [Saicheg] (https://github.com/Saicheg)
 - [Alex Yakubenko] (https://github.com/alexyakubenko)
 - [Robert Strobl] (https://github.com/rstrobl)
+- [JASON LEW]
 
 ## Contributing
 
